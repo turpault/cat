@@ -1,9 +1,53 @@
-<!DOCTYPE>
-<html>
+<!doctype html>
+
+<html lang="en">
 <head>
-<title>Under Construction</title>
+  <meta charset="utf-8">
+
+  <title>Jeu de Tron</title>
+  <meta name="description" content="Jeu de Tron">
+  <meta name="author" content="Louis et Marie">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <style>* {padding: 0; margin: 0}</style>
 </head>
+
 <body>
-<p>This page is under construction. Please come back soon!</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.5/pixi.min.js"></script>
+  <script type="text/javascript">
+    let type = "WebGL";
+    if(!PIXI.utils.isWebGLSupported()){
+      type = "canvas"
+      console.info("Coucou");
+    }
+    PIXI.utils.sayHello(type)
+
+    let app = new PIXI.Application();
+
+    //Add the canvas that Pixi automatically created for you to the HTML document
+    document.body.appendChild(app.view);
+    app.renderer.backgroundColor = 0xFF0000 ;
+    app.renderer.view.style.position = "absolute";
+    app.renderer.view.style.display = "block";
+    app.renderer.autoResize = true;
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+
+    PIXI.loader
+      .add("images/chat.png")
+      .load(setup);
+
+    function setup() {
+      //This code will run when the loader has finished loading the image
+      let texture = PIXI.utils.TextureCache["images/chat.png"];
+      let sprite = new PIXI.Sprite(texture);
+      app.stage.addChild(sprite);
+      sprite.x = 400;
+      sprite.y = 200;
+      setInterval(function() {
+        sprite.width =  sprite.width +1 ;
+        sprite.rotation += 1;
+      }, 1);
+    }
+  </script>
 </body>
 </html>
